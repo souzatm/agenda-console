@@ -11,12 +11,16 @@
       "RelativeMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|solutionrelative:agendaconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|c:\\dev\\backend\\agendaconsole\\agendaconsole\\models\\agenda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|solutionrelative:agendaconsole\\models\\agenda.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|c:\\dev\\backend\\agendaconsole\\agendaconsole\\models\\agendavisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|solutionrelative:agendaconsole\\models\\agendavisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|c:\\dev\\backend\\agendaconsole\\agendaconsole\\exceptions\\agendaexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|solutionrelative:agendaconsole\\exceptions\\agendaexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|c:\\dev\\backend\\agendaconsole\\agendaconsole\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2020A6CC-1C26-4CAC-8A85-B0057A43AC8E}|AgendaConsole\\AgendaConsole.csproj|solutionrelative:agendaconsole\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -36,7 +40,7 @@
               "RelativeDocumentMoniker": "AgendaConsole\\Program.cs",
               "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Program.cs",
               "RelativeToolTip": "AgendaConsole\\Program.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAADwvy4AAAAAAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAqwCQAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-20T12:48:50.386Z",
               "IsPinned": true,
@@ -44,15 +48,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AgendaException.cs",
-              "DocumentMoniker": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Exceptions\\AgendaException.cs",
-              "RelativeDocumentMoniker": "AgendaConsole\\Exceptions\\AgendaException.cs",
-              "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Exceptions\\AgendaException.cs",
-              "RelativeToolTip": "AgendaConsole\\Exceptions\\AgendaException.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "Agenda.cs",
+              "DocumentMoniker": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Models\\Agenda.cs",
+              "RelativeDocumentMoniker": "AgendaConsole\\Models\\Agenda.cs",
+              "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Models\\Agenda.cs",
+              "RelativeToolTip": "AgendaConsole\\Models\\Agenda.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAxwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-20T13:21:15.925Z",
+              "WhenOpened": "2024-09-20T17:24:26.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AgendaVisual.cs",
+              "DocumentMoniker": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Models\\AgendaVisual.cs",
+              "RelativeDocumentMoniker": "AgendaConsole\\Models\\AgendaVisual.cs",
+              "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Models\\AgendaVisual.cs",
+              "RelativeToolTip": "AgendaConsole\\Models\\AgendaVisual.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-20T17:17:01.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "AgendaConsole\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "AgendaConsole\\Data\\AppDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-20T17:16:39.444Z",
               "EditorCaption": ""
             },
             {
@@ -63,22 +93,9 @@
               "RelativeDocumentMoniker": "AgendaConsole\\Services\\AgendaServico.cs",
               "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Services\\AgendaServico.cs",
               "RelativeToolTip": "AgendaConsole\\Services\\AgendaServico.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAAwIYAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-20T12:49:03.625Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AgendaVisual.cs",
-              "DocumentMoniker": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Models\\AgendaVisual.cs",
-              "RelativeDocumentMoniker": "AgendaConsole\\Models\\AgendaVisual.cs",
-              "ToolTip": "C:\\dev\\backend\\AgendaConsole\\AgendaConsole\\Models\\AgendaVisual.cs",
-              "RelativeToolTip": "AgendaConsole\\Models\\AgendaVisual.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAA8AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-20T12:17:27.096Z",
+              "WhenOpened": "2024-09-20T16:46:41.911Z",
               "EditorCaption": ""
             }
           ]

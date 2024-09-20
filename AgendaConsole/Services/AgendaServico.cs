@@ -2,12 +2,14 @@
 using AgendaConsole.Exceptions;
 using AgendaConsole.Models;
 using Microsoft.Data.SqlClient;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace AgendaConsole.Services
 {
     public static class AgendaService
     {
+        // Adiciona compromisso a lista Agenda em memória
         public static void AdicionaCompromisso(List<Agenda> lista)
         {
             Console.Clear();
@@ -26,6 +28,7 @@ namespace AgendaConsole.Services
             AgendaVisual.Menu();
         }
 
+        // Consulta compromissos a lista Agenda em memória
         public static void ConsultaAgenda(List<Agenda> lista)
         {
             Console.Clear();
@@ -39,7 +42,7 @@ namespace AgendaConsole.Services
             }
             else
             {
-                Console.WriteLine("Nenhum compromisso na lista!");
+                throw new AgendaException("Nenhum compromisso localizado!");
             }
 
 
@@ -48,6 +51,7 @@ namespace AgendaConsole.Services
             AgendaVisual.Menu();
         }
 
+        // Consulta compromissos por data a lista Agenda em memória
         public static void ConsultaAgendaPorData(List<Agenda> lista)
         {
             Console.Clear();
@@ -65,7 +69,7 @@ namespace AgendaConsole.Services
             }
             else
             {
-                Console.WriteLine("Nenhum compromisso encontrado na data informada!");
+                throw new AgendaException("Nenhum compromisso encontrado!");
             }
 
             Console.ReadKey();
@@ -74,6 +78,7 @@ namespace AgendaConsole.Services
 
         }
 
+        // Atualiza compromisso por nome e atualiza a data a lista Agenda em memória
         public static void AtualizaCompromisso(List<Agenda> lista)
         {
             Console.Clear();
@@ -92,7 +97,7 @@ namespace AgendaConsole.Services
             }
             else
             {
-                Console.WriteLine("Nenhum compromisso encontrado!");
+                throw new AgendaException("Nenhum compromisso encontrado!");
                 
             }
             Console.ReadKey();
@@ -100,6 +105,7 @@ namespace AgendaConsole.Services
             AgendaVisual.Menu();
         }
 
+        //Deleta compromisso por nome na lista Agenda em memória
         public static void DeletaCompromisso(List<Agenda> lista)
         {
             Console.Clear();
@@ -116,7 +122,7 @@ namespace AgendaConsole.Services
             }
             else
             {
-                Console.WriteLine("Nenhum compromisso encontrado!");
+                throw new AgendaException("Nenhum compromisso encontrado!");
             }
 
             Console.ReadKey();
@@ -124,26 +130,85 @@ namespace AgendaConsole.Services
             AgendaVisual.Menu();
         }
 
-        public static void SalvarCompromisso(List<Agenda> agenda)
+        //Salva os compromissos adicionados a lista Agenda no DB
+        public static void SalvarCompromissoDb(List<Agenda> agenda)
         {
-            using (var context = new AppDbContext())
+            try
             {
-                context.Compromissos.AddRange(agenda);
-                context.SaveChanges();
-            }
-        }
-
-        public static void ConsultaCompromisso()
-        {
-            using (var context = new AppDbContext())
-            {
-                var compromissos = context.Compromissos.ToList();
-
-                foreach (var compromisso in compromissos)
+                if (agenda.Count == 0)
                 {
-                    Console.WriteLine($"ID: {compromisso.Id}, Título: {compromisso.Compromisso}, Data: {compromisso.DataCompromisso}");
+                    throw new AgendaException("Nenhum compromisso para salvar.");
+                }
+
+                using (var context = new AppDbContext())
+                {
+                    context.Compromissos.AddRange(agenda);
+                    context.SaveChanges();
+                    Console.WriteLine("Compromisso salvo com sucesso!");
                 }
             }
+            catch (AgendaException e)
+            {
+                throw new AgendaException(e.Message);
+            }   
+            Console.ReadKey();
+        }
+
+        //Consulta compromissos salvos no DB
+        public static void ConsultaCompromissoDb()
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var compromissos = context.Compromissos.ToList();
+
+                    if (compromissos == null)
+                    {
+                        throw new AgendaException("Compromisso não encontrado no Database.");
+                    }
+
+                    foreach (var compromisso in compromissos.OrderBy(c => c.DataCompromisso))
+                    {
+                        Console.WriteLine($"ID: {compromisso.Id}, Título: {compromisso.Compromisso}, Data: {compromisso.DataCompromisso}");
+                    }
+                }
+            }
+            catch(AgendaException e) 
+            {
+                throw new AgendaException(e.Message);
+            }
+            
+            Console.ReadKey();
+        }
+
+        // Remove compromissos salvos no DB
+        public static void RemoverCompromissoDb()
+        {
+            Console.Write("Informe o compromisso a ser removido do DataBase: ");
+            string compromisso = Console.ReadLine();
+
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var cpm = context.Compromissos.FirstOrDefault(c => c.Compromisso == compromisso);
+
+                    if (cpm == null)
+                    {
+                        throw new AgendaException("Compromisso não encontrado no Database.");
+                    }
+
+                    context.Compromissos.Remove(cpm);
+                    context.SaveChanges();
+                    Console.WriteLine("Compromisso removido com sucesso!");
+                }
+            }
+            catch (AgendaException e)
+            {
+                throw new AgendaException(e.Message);
+            }
+            Console.ReadKey();
         }
     }
 }

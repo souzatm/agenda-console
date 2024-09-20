@@ -13,8 +13,9 @@
 
             Console.WriteLine();
             Console.WriteLine("+--------------------------+");
-            Console.WriteLine("8. Salvar compromissos");
-            Console.WriteLine("9. Consultar compromissos cadastrados");
+            Console.WriteLine("7. Salvar compromissos no Database");
+            Console.WriteLine("8. Consultar compromissos no Database");
+            Console.WriteLine("9. Remover compromisso no Database");
             Console.WriteLine();
             Console.WriteLine("0. Sair");
             Console.WriteLine();

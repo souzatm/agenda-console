@@ -33,11 +33,14 @@ namespace AgendaConsole
                     case 5:
                         AgendaService.DeletaCompromisso(lista);
                         break;
+                    case 7:
+                        AgendaService.SalvarCompromissoDb(lista);
+                        break;
                     case 8:
-                        AgendaService.SalvarCompromisso(lista);
+                        AgendaService.ConsultaCompromissoDb();
                         break;
                     case 9:
-                        AgendaService.ConsultaCompromisso();
+                        AgendaService.RemoverCompromissoDb();
                         break;
                 }
                 Console.Clear();
@@ -50,7 +53,7 @@ namespace AgendaConsole
             Console.WriteLine("Obrigado por usar nosso sistema!");
 
             Console.WriteLine("COMPROMISSOS MARCADOS: ");
-            AgendaService.ConsultaCompromisso();
+            AgendaService.ConsultaCompromissoDb();
             Console.ReadKey();
             Environment.Exit(0);
         }

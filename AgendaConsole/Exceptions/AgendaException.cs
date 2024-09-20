@@ -8,6 +8,11 @@ namespace AgendaConsole.Exceptions
 {
     public class AgendaException : Exception
     {
-        public AgendaException() : base("A lista está vazia") { }
+        public AgendaException() { }
+
+        public AgendaException(string message)
+        : base(message)
+        {
+        }
     }
 }
