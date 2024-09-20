@@ -1,4 +1,8 @@
-﻿using AgendaConsole.Models;
+﻿using AgendaConsole.Data;
+using AgendaConsole.Exceptions;
+using AgendaConsole.Models;
+using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace AgendaConsole.Services
 {
@@ -15,8 +19,6 @@ namespace AgendaConsole.Services
             Agenda agenda = new Agenda(nomeCompromisso, dataCompromisso);
 
             lista.Add(agenda);
-
-            Console.Clear();
             Console.WriteLine("Compromisso cadastrado na agenda com sucesso!");
             Console.ReadKey();
 
@@ -27,10 +29,20 @@ namespace AgendaConsole.Services
         public static void ConsultaAgenda(List<Agenda> lista)
         {
             Console.Clear();
-            foreach (Agenda agenda in lista.OrderBy(c => c.DataCompromisso))
+
+            if (lista.Count > 0)
             {
-                Console.WriteLine(agenda);
+                foreach (Agenda agenda in lista.OrderBy(c => c.DataCompromisso))
+                {
+                    Console.WriteLine(agenda);
+                }
             }
+            else
+            {
+                Console.WriteLine("Nenhum compromisso na lista!");
+            }
+
+
             Console.ReadKey();
             Console.Clear();
             AgendaVisual.Menu();
@@ -38,15 +50,24 @@ namespace AgendaConsole.Services
 
         public static void ConsultaAgendaPorData(List<Agenda> lista)
         {
+            Console.Clear();
             Console.Write("Informe a data a ser consultada: ");
             DateTime data = DateTime.Parse(Console.ReadLine());
 
             var cpm = lista.Where(c => c.DataCompromisso == data).ToList();
 
-            foreach(Agenda agenda in cpm)
+            if (cpm.Count > 0)
             {
-                Console.WriteLine(agenda);
+                foreach (Agenda agenda in lista)
+                {
+                    Console.WriteLine(agenda);
+                }
             }
+            else
+            {
+                Console.WriteLine("Nenhum compromisso encontrado na data informada!");
+            }
+
             Console.ReadKey();
             Console.Clear();
             AgendaVisual.Menu();
@@ -67,11 +88,14 @@ namespace AgendaConsole.Services
                 DateTime novaData = DateTime.Parse(Console.ReadLine());
                 cpm.DataCompromisso = novaData;
 
-                Console.Clear();
                 Console.WriteLine("Data do compromisso atualizada!");
-                Console.ReadKey();
             }
-
+            else
+            {
+                Console.WriteLine("Nenhum compromisso encontrado!");
+                
+            }
+            Console.ReadKey();
             Console.Clear();
             AgendaVisual.Menu();
         }
@@ -84,16 +108,42 @@ namespace AgendaConsole.Services
 
             var cpm = lista.Find(c => c.Compromisso == compromisso);
 
-            if(cpm != null)
+            if (cpm != null)
             {
                 lista.Remove(cpm);
                 Console.WriteLine("Compromisso removido com sucesso!");
-                Console.ReadKey();
+
+            }
+            else
+            {
+                Console.WriteLine("Nenhum compromisso encontrado!");
             }
 
+            Console.ReadKey();
             Console.Clear();
             AgendaVisual.Menu();
         }
 
+        public static void SalvarCompromisso(List<Agenda> agenda)
+        {
+            using (var context = new AppDbContext())
+            {
+                context.Compromissos.AddRange(agenda);
+                context.SaveChanges();
+            }
+        }
+
+        public static void ConsultaCompromisso()
+        {
+            using (var context = new AppDbContext())
+            {
+                var compromissos = context.Compromissos.ToList();
+
+                foreach (var compromisso in compromissos)
+                {
+                    Console.WriteLine($"ID: {compromisso.Id}, Título: {compromisso.Compromisso}, Data: {compromisso.DataCompromisso}");
+                }
+            }
+        }
     }
 }

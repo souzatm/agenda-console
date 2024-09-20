@@ -2,6 +2,7 @@
 {
     public class Agenda
     {
+        public int Id { get; set; }
         public string? Compromisso { get; set; }
         public DateTime DataCompromisso { get; set; }
 

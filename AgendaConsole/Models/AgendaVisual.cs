@@ -10,7 +10,13 @@
             Console.WriteLine(" 3. Consultar data na agenda");
             Console.WriteLine(" 4. Atualizar compromisso");
             Console.WriteLine(" 5. Deletar compromisso");
-            Console.WriteLine(" 0. Sair");
+
+            Console.WriteLine();
+            Console.WriteLine("+--------------------------+");
+            Console.WriteLine("8. Salvar compromissos");
+            Console.WriteLine("9. Consultar compromissos cadastrados");
+            Console.WriteLine();
+            Console.WriteLine("0. Sair");
             Console.WriteLine();
         }
     }
