@@ -43,10 +43,7 @@ namespace AgendaConsole
                         AgendaService.RemoverCompromissoDb();
                         break;
                 }
-                Console.Clear();
-                AgendaVisual.Menu();
-                Console.Write("Selecione a opção desejada: ");
-                item = int.Parse(Console.ReadLine());
+                AgendaService.ContinuarAgenda();
 
             } while (item != 0);
 
