@@ -10,8 +10,8 @@ namespace AgendaConsole.Services
 {
     public static class AgendaService
     {
-        // Adiciona compromisso a lista Agenda em memória
-        public static void AdicionaCompromisso(List<Agenda> lista)
+        // Adiciona compromisso no DB
+        public static void AdicionaCompromisso()
         {
             try
             {
@@ -21,145 +21,11 @@ namespace AgendaConsole.Services
                 Console.Write("Informe a data do compromisso: ");
                 DateTime dataCompromisso = DateTime.Parse(Console.ReadLine());
 
-                Agenda agenda = new Agenda(nomeCompromisso, dataCompromisso);
-
-                lista.Add(agenda);
-                Console.WriteLine("Compromisso cadastrado na agenda com sucesso!");
-            }
-            catch (AgendaException e)
-            {
-                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
-                Console.ReadKey();
-            }
-            finally
-            {
-                ContinuarAgenda();
-            }
-        }
-
-        // Consulta compromissos a lista Agenda em memória
-        public static void ConsultaAgenda(List<Agenda> lista)
-        {
-            try
-            {
-                Console.Clear();
-                if (lista.Count > 0)
-                {
-                    foreach (Agenda agenda in lista.OrderBy(c => c.DataCompromisso))
-                    {
-                        Console.WriteLine(agenda);
-                    }
-                }
-            }
-            catch (AgendaException e)
-            {
-                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
-                Console.ReadKey();
-            }
-            finally
-            {
-                ContinuarAgenda();
-            }
-        }
-
-        // Consulta compromissos por data a lista Agenda em memória
-        public static void ConsultaAgendaPorData(List<Agenda> lista)
-        {
-            try
-            {
-                Console.Clear();
-                Console.Write("Informe a data a ser consultada: ");
-                DateTime data = DateTime.Parse(Console.ReadLine());
-
-                var cpm = lista.Where(c => c.DataCompromisso == data).ToList();
-
-                if (cpm.Count > 0)
-                {
-                    foreach (Agenda agenda in lista)
-                    {
-                        Console.WriteLine(agenda);
-                    }
-                }
-            }
-            catch (AgendaException e)
-            {
-                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
-            }
-            finally
-            {
-                ContinuarAgenda();
-            }
-        }
-
-        // Atualiza compromisso por nome e atualiza a data a lista Agenda em memória
-        public static void AtualizaCompromisso(List<Agenda> lista)
-        {
-            try
-            {
-                Console.Clear();
-                Console.Write("Informe um compromisso a ser editado: ");
-                string compromisso = Console.ReadLine();
-
-                var cpm = lista.Find(c => c.Compromisso == compromisso);
-                if (cpm != null)
-                {
-                    Console.Write("Informe a nova data do compromisso: ");
-                    DateTime novaData = DateTime.Parse(Console.ReadLine());
-                    cpm.DataCompromisso = novaData;
-
-                    Console.WriteLine("Data do compromisso atualizada!");
-                }
-            }
-            catch (AgendaException e)
-            {
-                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
-            }
-            finally
-            {
-                ContinuarAgenda();
-            }
-        }
-
-        //Deleta compromisso por nome na lista Agenda em memória
-        public static void DeletaCompromisso(List<Agenda> lista)
-        {
-            try
-            {
-                Console.Clear();
-                Console.Write("Informe o título do compromisso a ser deletado: ");
-                string compromisso = Console.ReadLine();
-
-                var cpm = lista.Find(c => c.Compromisso == compromisso);
-                if (cpm != null)
-                {
-                    lista.Remove(cpm);
-                    Console.WriteLine("Compromisso removido com sucesso!");
-                }
-            }
-            catch (AgendaException e)
-            {
-                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
-            }
-            finally
-            {
-                ContinuarAgenda();
-            }
-        }
-
-        //Salva os compromissos adicionados a lista Agenda no DB
-        public static void SalvarCompromissoDb(List<Agenda> agenda)
-        {
-            try
-            {
-                if (!agenda.Any())
-                {
-                    Console.WriteLine("Nenhum compromisso para salvar.");
-                    return;
-                }
+                Agenda compromisso = new Agenda(nomeCompromisso, dataCompromisso);
 
                 using (var context = new AppDbContext())
                 {
-                    context.Compromissos.AddRange(agenda);
+                    context.Compromissos.Add(compromisso);
                     context.SaveChanges();
                     Console.WriteLine("Compromisso salvo com sucesso!");
                 }
@@ -170,15 +36,16 @@ namespace AgendaConsole.Services
             }
             finally
             {
-                ContinuarAgenda();
+                Console.ReadKey();
             }
         }
 
-        //Consulta compromissos salvos no DB
-        public static void ConsultaCompromissoDb()
+        // Consulta compromissos no DB
+        public static void ConsultaAgenda()
         {
             try
             {
+                Console.Clear();
                 using (var context = new AppDbContext())
                 {
                     var compromissos = context.Compromissos.ToList();
@@ -201,49 +68,128 @@ namespace AgendaConsole.Services
             }
             finally
             {
-                ContinuarAgenda();
+                Console.ReadKey();
             }
         }
 
-        // Remove compromissos salvos no DB
-        public static void RemoverCompromissoDb()
+        // Consulta compromissos por data no DB
+        public static void ConsultaAgendaPorData()
         {
             try
             {
-                Console.Write("Informe o compromisso a ser removido do DataBase: ");
-                string compromisso = Console.ReadLine();
+                Console.Clear();
+                Console.Write("Informe a data a ser consultada: ");
+                DateTime data = DateTime.Parse(Console.ReadLine());
 
                 using (var context = new AppDbContext())
                 {
-                    var cpm = context.Compromissos.FirstOrDefault(c => c.Compromisso == compromisso);
+                    var compromissos = context.Compromissos.Where(c => c.DataCompromisso == data).ToList();
 
-                    if (cpm == null)
+                    if (!compromissos.Any())
                     {
-                        throw new AgendaException("Compromisso não encontrado no Database.");
+                        Console.WriteLine("Nenhum compromisso encontrado no Database.");  
                     }
 
-                    context.Compromissos.Remove(cpm);
-                    context.SaveChanges();
-                    Console.WriteLine("Compromisso removido com sucesso!");
+                    foreach (var compromisso in compromissos.OrderBy(c => c.DataCompromisso))
+                    {
+                        Console.WriteLine($"ID: {compromisso.Id}, Título: {compromisso.Compromisso}, Data: {compromisso.DataCompromisso}");
+                        Console.ReadKey();
+                    }
+                    Console.ReadKey();
                 }
             }
             catch (AgendaException e)
             {
                 Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
             }
-            finally
+        }
+
+        // Solicita compromisso por nome e atualiza a data no DB
+        public static void AtualizaCompromisso()
+        {
+            try
             {
-                ContinuarAgenda();
+                Console.Clear();
+                Console.Write("Informe o título do compromisso a ser atualizado: ");
+                string compromisso = Console.ReadLine();
+
+                using (var context = new AppDbContext())
+                {
+                    var cpm = context.Compromissos.FirstOrDefault(c => c.Compromisso == compromisso);
+
+                    if (cpm != null)
+                    {
+                        Console.Write("Informe a nova data do compromisso: ");
+                        DateTime novaData = DateTime.Parse(Console.ReadLine());
+                        cpm.DataCompromisso = novaData;
+
+                        context.Compromissos.Update(cpm);
+                        context.SaveChanges();
+                        Console.WriteLine("Data do compromisso atualizada!");
+                        Console.ReadKey();
+                        return;
+                    }
+                    Console.WriteLine("Nenhum compromisso localizado.");
+                    Console.ReadKey();
+                }
+            }
+            catch (AgendaException e)
+            {
+                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
             }
         }
 
-        public static void ContinuarAgenda()
+        //Deleta compromisso por nome no DB
+        public static void DeletaCompromisso()
         {
-            Console.ReadKey();
+            try
+            {
+                Console.Clear();
+                Console.Write("Informe o título do compromisso a ser deletado: ");
+                string compromisso = Console.ReadLine();
+
+                using (var context = new AppDbContext())
+                {
+                    var cpm = context.Compromissos.FirstOrDefault(c => c.Compromisso == compromisso);
+
+                    if (cpm != null)
+                    {
+                        context.Compromissos.Remove(cpm);
+                        context.SaveChanges();
+                        Console.WriteLine("Compromisso removido com sucesso!");
+                        Console.ReadKey();
+                        return;
+                    }
+
+                    Console.WriteLine("Nenhum compromisso localizado.");
+                    Console.ReadKey();
+                }
+
+            }
+            catch (AgendaException e)
+            {
+                Console.WriteLine("OCORREU UM ERRO INESPERADO: " + e.Message);
+            }
+
+        }
+
+        public static int ContinuarAgenda()
+        {
             Console.Clear();
             AgendaVisual.Menu();
             Console.Write("Selecione a opção desejada: ");
             int item = int.Parse(Console.ReadLine());
+            return item;
+        }
+
+        public static void EncerrarAgenda()
+        {
+            Console.Clear();
+            Console.WriteLine("Obrigado por usar nosso sistema!");
+            Console.WriteLine("COMPROMISSOS MARCADOS: ");
+            ConsultaAgenda();
+            Console.ReadKey();
+            Environment.Exit(0);
         }
     }
 }

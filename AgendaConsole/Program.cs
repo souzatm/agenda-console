@@ -19,40 +19,26 @@ namespace AgendaConsole
                 switch (item)
                 {
                     case 1:
-                        AgendaService.AdicionaCompromisso(lista);
+                        AgendaService.AdicionaCompromisso();
                         break;
                     case 2:
-                        AgendaService.ConsultaAgenda(lista);
+                        AgendaService.ConsultaAgenda();
                         break;
                     case 3:
-                        AgendaService.ConsultaAgendaPorData(lista);
+                        AgendaService.ConsultaAgendaPorData();
                         break;
                     case 4:
-                        AgendaService.AtualizaCompromisso(lista);
+                        AgendaService.AtualizaCompromisso();
                         break;
                     case 5:
-                        AgendaService.DeletaCompromisso(lista);
-                        break;
-                    case 7:
-                        AgendaService.SalvarCompromissoDb(lista);
-                        break;
-                    case 8:
-                        AgendaService.ConsultaCompromissoDb();
-                        break;
-                    case 9:
-                        AgendaService.RemoverCompromissoDb();
+                        AgendaService.DeletaCompromisso();
                         break;
                 }
-                AgendaService.ContinuarAgenda();
+                item = AgendaService.ContinuarAgenda();
 
             } while (item != 0);
 
-            Console.WriteLine("Obrigado por usar nosso sistema!");
-
-            Console.WriteLine("COMPROMISSOS MARCADOS: ");
-            AgendaService.ConsultaCompromissoDb();
-            Console.ReadKey();
-            Environment.Exit(0);
+            AgendaService.EncerrarAgenda();
         }
     }
 }

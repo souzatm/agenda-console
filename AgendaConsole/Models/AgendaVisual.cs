@@ -11,13 +11,7 @@
             Console.WriteLine(" 4. Atualizar compromisso");
             Console.WriteLine(" 5. Deletar compromisso");
 
-            Console.WriteLine();
-            Console.WriteLine("+--------------------------+");
-            Console.WriteLine("7. Salvar compromissos no Database");
-            Console.WriteLine("8. Consultar compromissos no Database");
-            Console.WriteLine("9. Remover compromisso no Database");
-            Console.WriteLine();
-            Console.WriteLine("0. Sair");
+            Console.WriteLine(" 0. Sair");
             Console.WriteLine();
         }
     }
